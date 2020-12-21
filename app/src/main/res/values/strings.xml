@@ -11,5 +11,6 @@
     <string name="scan_mode_none">Bluetooth scan mode unavailable</string>
     <string name="scan_mode_connectable">Bluetooth connectable: device can be seen by previously connected devices</string>
     <string name="scan_mode_connectable_discoverable">Bluetooth connectable and discoverable: device can be seen by all surrounding devices</string>
+    <string name="set_always_visible_normal_way_text">Set bluetooth Always Discoverable (Normal Way)</string>
 
 </resources>

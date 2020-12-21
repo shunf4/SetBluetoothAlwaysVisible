@@ -25,10 +25,21 @@
         android:layout_height="wrap_content"
         android:onClick="onRefreshStatusClicked"
         android:text="@string/refresh_status_text"
-        app:layout_constraintBottom_toTopOf="@id/set_always_visible"
+        app:layout_constraintBottom_toTopOf="@id/set_always_visible_normal_way"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_status" />
+
+    <Button
+        android:id="@+id/set_always_visible_normal_way"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onSetAlwaysVisibleNormalWayClicked"
+        android:text="@string/set_always_visible_normal_way_text"
+        app:layout_constraintBottom_toTopOf="@id/set_always_visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/refresh_status" />
 
     <Button
         android:id="@+id/set_always_visible"
@@ -39,6 +50,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/refresh_status" />
+        app:layout_constraintTop_toBottomOf="@+id/set_always_visible_normal_way" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

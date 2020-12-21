@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SetBluetoothAlwaysVisible</string>
+    <string name="bt_status_default_text">蓝牙可见性信息将在这里显示</string>
+    <string name="set_always_visible_text">设置蓝牙总是可见</string>
+    <string name="refresh_status_text">刷新蓝牙状态</string>
+    <string name="state_off">蓝牙已关闭</string>
+    <string name="state_turning_on">蓝牙正在打开</string>
+    <string name="state_on">蓝牙已打开</string>
+    <string name="state_turning_off">蓝牙正在关闭</string>
+    <string name="scan_mode_none">蓝牙扫描模式不可用</string>
+    <string name="scan_mode_connectable">蓝牙可连接：本设备可被已经连接过的设备发现</string>
+    <string name="scan_mode_connectable_discoverable">蓝牙可连接可被发现：本设备可被所有附近设备发现</string>
+    <string name="set_always_visible_normal_way_text">设置蓝牙总是可见（正常模式）</string>
+</resources>

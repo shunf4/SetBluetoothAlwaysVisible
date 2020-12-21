@@ -46,7 +46,7 @@ SIGNING_KEY:
 ALIAS:
 KEY_STORE_PASSWORD:
 KEY_PASSWORD:
-                 */
+*/
             }
         }
     }
