@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SetBluetoothAlwaysVisible</string>
+    <string name="bt_status_default_text">Bluetooth visibility(discoverability) status will be shown here</string>
+    <string name="set_always_visible_text">Set bluetooth always discoverable</string>
+    <string name="refresh_status_text">Refresh status</string>
+
+    <string name="state_off">Bluetooth off</string>
+    <string name="state_turning_on">Bluetooth turning on</string>
+    <string name="state_on">Bluetooth on</string>
+    <string name="state_turning_off">Bluetooth turning off</string>
+    <string name="scan_mode_none">Bluetooth scan mode unavailable</string>
+    <string name="scan_mode_connectable">Bluetooth connectable: device can be seen by previously connected devices</string>
+    <string name="scan_mode_connectable_discoverable">Bluetooth connectable and discoverable: device can be seen by all surrounding devices</string>
+
+</resources>
