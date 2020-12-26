@@ -27,6 +27,7 @@ android {
             if (file("sign.gradle").exists()) {
                 // Local environment
                 signingConfig signingConfigs.release
+                debuggable true
 
                 /* sign.gradle is like:
 android {

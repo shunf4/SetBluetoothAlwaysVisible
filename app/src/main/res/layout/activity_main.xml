@@ -6,50 +6,113 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/bt_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bt_status_default_text"
-        app:layout_constraintBottom_toTopOf="@id/refresh_status"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <LinearLayout
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42000002"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:layout_marginBottom="10dp"/>
-
-    <Button
-        android:id="@+id/refresh_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onRefreshStatusClicked"
-        android:text="@string/refresh_status_text"
-        app:layout_constraintBottom_toTopOf="@id/set_always_visible_normal_way"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_status" />
-
-    <Button
-        android:id="@+id/set_always_visible_normal_way"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onSetAlwaysVisibleNormalWayClicked"
-        android:text="@string/set_always_visible_normal_way_text"
-        app:layout_constraintBottom_toTopOf="@id/set_always_visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/refresh_status" />
-
-    <Button
-        android:id="@+id/set_always_visible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onSetAlwaysVisibleClicked"
-        android:text="@string/set_always_visible_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/set_always_visible_normal_way" />
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/bt_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_status_default_text"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/refresh_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onRefreshStatusClicked"
+            android:text="@string/refresh_status_text" />
+
+        <Button
+            android:id="@+id/set_always_visible_normal_way"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onSetAlwaysVisibleNormalWayClicked"
+            android:text="@string/set_always_visible_normal_way_text" />
+
+        <Button
+            android:id="@+id/set_always_visible_normal_way_300s"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onSetAlwaysVisibleNormalWay300SecondsClicked"
+            android:text="@string/set_always_visible_normal_way_300s_text" />
+
+        <Button
+            android:id="@+id/set_always_visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onSetAlwaysVisibleClicked"
+            android:text="@string/set_always_visible_text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hint_input_mac_address_to_ping"
+                android:layout_marginEnd="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:inputType="text"
+                android:text="00:18:09:9B:4D:7E"
+                android:id="@+id/input_mac_address_to_ping" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/start_ping"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onStartPingClicked"
+            android:text="@string/start_ping" />
+
+        <TextView
+            android:id="@+id/ping_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:lines="10"
+            />
+
+        <Button
+            android:id="@+id/start_ping_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onStartPingJobClicked"
+            android:text="@string/start_ping_job" />
+
+        <Button
+            android:id="@+id/query_ping_jobs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onQueryPingJobsClicked"
+            android:text="@string/query_ping_jobs" />
+
+        <Button
+            android:id="@+id/end_all_ping_jobs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onEndAllPingJobsClicked"
+            android:text="@string/end_all_ping_jobs"
+            android:backgroundTint="@android:color/holo_red_light" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

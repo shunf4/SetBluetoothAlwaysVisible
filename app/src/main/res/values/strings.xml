@@ -12,5 +12,20 @@
     <string name="scan_mode_connectable">Bluetooth connectable: device can be seen by previously connected devices</string>
     <string name="scan_mode_connectable_discoverable">Bluetooth connectable and discoverable: device can be seen by all surrounding devices</string>
     <string name="set_always_visible_normal_way_text">Set bluetooth Always Discoverable (Normal Way)</string>
+    <string name="set_always_visible_normal_way_300s_text" >Set bluetooth Always Discoverable (Normal Way, 300s)</string>
+    <string name="hint_input_mac_address_to_ping">MAC address</string>
+    <string name="start_ping">Start Ping</string>
+    <string name="error_mac_address">You entered bad MAC address</string>
+    <string name="bluetooth_ping_start_success">Ping started successfully</string>
+    <string name="bluetooth_ping_start_failure">Ping started failed</string>
+    <string name="please_wait_for_ping_result">Please wait…</string>
+    <string name="ping_result_uuids">UUIDs: %1$s</string>
+    <string name="ping_result_no_uuid">No UUID received</string>
+    <string name="start_ping_job">Start Ping Job</string>
+    <string name="end_all_ping_jobs">End All Ping Jobs</string>
+    <string name="start_ping_job_success">Started Ping job hopefully</string>
+    <string name="end_ping_jobs_success">Ended Ping jobs hopefully</string>
+    <string name="hint_list_jobs">"Current jobs: "</string>
+    <string name="query_ping_jobs">Query Current Ping Jobs</string>
 
 </resources>
