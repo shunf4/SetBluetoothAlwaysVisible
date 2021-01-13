@@ -13,9 +13,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.PersistableBundle;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class PersistentPingJobService extends JobService {
 
@@ -26,7 +23,7 @@ public class PersistentPingJobService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
-        int[] macAddressIntArray = jobParameters.getExtras().getIntArray(MainActivity.MAC_ADDRESS_KEY);
+        int[] macAddressIntArray = jobParameters.getExtras().getIntArray(MainActivity.KEY_MAC_ADDRESS);
         byte[] macAddress = MainActivity.intArrayToByteArray(macAddressIntArray);
 
         final BroadcastReceiver[] pingReceiver = new BroadcastReceiver[1];
@@ -75,7 +72,7 @@ public class PersistentPingJobService extends JobService {
         JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
 
         PersistableBundle bundle = new PersistableBundle();
-        bundle.putIntArray(MainActivity.MAC_ADDRESS_KEY, macAddressIntArray);
+        bundle.putIntArray(MainActivity.KEY_MAC_ADDRESS, macAddressIntArray);
 
         JobInfo.Builder builder = new JobInfo.Builder((int) System.currentTimeMillis(),
                 new ComponentName(getPackageName(), PersistentPingJobService.class.getName())

@@ -3,6 +3,10 @@ package com.shunf4.setbluetoothalwaysvisible;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.bluetooth.BluetoothAdapter;
@@ -12,13 +16,18 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.ParcelUuid;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +37,8 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_DISCOVERABLE_BT = 10001;
+
+    public static final String KEY_LISTENING_MAC = "listening_mac";
 
     private final BroadcastReceiver pingReceiver = new BroadcastReceiver() {
         @Override
@@ -63,6 +74,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         onRefreshStatusClicked(null);
+
+        EditText listeningMac = (EditText) findViewById(R.id.input_mac_address_to_listen);
+        listeningMac.setText(PreferenceManager.getDefaultSharedPreferences(this).getString(KEY_LISTENING_MAC, ""));
+        listeningMac.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit();
+                editor.putString(KEY_LISTENING_MAC, listeningMac.getText().toString());
+                editor.apply();
+            }
+        });
     }
 
     @Override
@@ -198,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
         return sb.toString();
     }
 
-    public static final String MAC_ADDRESS_KEY = "MAC_ADDRESS";
+    public static final String KEY_MAC_ADDRESS = "MAC_ADDRESS";
 
     public static int[] byteArrayToIntArray(byte[] byteArray) {
         int[] result = new int[byteArray.length];
@@ -216,20 +244,17 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-    public void onStartPingJobClicked(View view) {
-        byte[] macAddress = parseMacAddressString(((TextView) findViewById(R.id.input_mac_address_to_ping)).getText());
-        if (macAddress == null) {
-            Toast.makeText(this, R.string.error_mac_address, Toast.LENGTH_LONG).show();
-            return;
-        }
+    public static final String CHANNEL_ID = "job_noti";
+    public static final int NOTIFICATION_ID = 12345;
 
-        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+    public static void doStartPingJob(Context context, byte[] macAddress, String macAddressStr) {
+        JobScheduler scheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
 
         PersistableBundle bundle = new PersistableBundle();
-        bundle.putIntArray(MAC_ADDRESS_KEY, byteArrayToIntArray(macAddress));
+        bundle.putIntArray(KEY_MAC_ADDRESS, byteArrayToIntArray(macAddress));
 
         JobInfo.Builder builder = new JobInfo.Builder((int) System.currentTimeMillis(),
-                new ComponentName(getPackageName(), PersistentPingJobService.class.getName())
+                new ComponentName(context.getPackageName(), PersistentPingJobService.class.getName())
         )
                 .setExtras(bundle)
                 .setMinimumLatency(10 * 1000);
@@ -237,12 +262,61 @@ public class MainActivity extends AppCompatActivity {
 
         JobInfo jobInfo = builder.build();
         scheduler.schedule(jobInfo);
+
+        macAddressStr = macAddressStr != null ? macAddressStr : macAddressToString(macAddress);
+
+        NotificationChannel channel = new NotificationChannel(
+                CHANNEL_ID,
+                context.getString(R.string.noti_channel_name),
+                NotificationManager.IMPORTANCE_DEFAULT
+        );
+        channel.setDescription(context.getString(R.string.noti_channel_desc));
+        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+
+        Intent mainActivityIntent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, mainActivityIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification.Builder notiBuilder = new Notification.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(context.getString(R.string.noti_job_executing))
+                .setContentText(context.getString(R.string.noti_job_executing_desc, macAddressStr))
+                .setContentIntent(pendingIntent)
+                .setOngoing(true);
+
+        notificationManager.notify(NOTIFICATION_ID, notiBuilder.build());
+
+        Log.i("SetBluetoothAlwaysVisible#doStartPingJob", "started ping job for " + macAddressStr);
+    }
+
+
+
+    public void onStartPingJobClicked(View view) {
+        String macAddressStr = ((TextView) findViewById(R.id.input_mac_address_to_ping)).getText().toString();
+        byte[] macAddress = parseMacAddressString(macAddressStr);
+        if (macAddress == null) {
+            Toast.makeText(this, R.string.error_mac_address, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        doStartPingJob(this, macAddress, macAddressStr);
+
         Toast.makeText(this, R.string.start_ping_job_success, Toast.LENGTH_SHORT).show();
     }
 
-    public void onEndAllPingJobsClicked(View view) {
-        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+    public static void doEndAllPingJobs(Context context) {
+        JobScheduler scheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
         scheduler.cancelAll();
+
+        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+        notificationManager.cancel(NOTIFICATION_ID);
+
+        Log.i("SetBluetoothAlwaysVisible#doEndAllPingJobs", "ended all ping jobs");
+    }
+
+    public void onEndAllPingJobsClicked(View view) {
+        doEndAllPingJobs(this);
         Toast.makeText(this, R.string.end_ping_jobs_success, Toast.LENGTH_SHORT).show();
     }
 

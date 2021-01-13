@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:lines="10"
+            android:lines="8"
             />
 
         <Button
@@ -112,6 +112,27 @@
             android:onClick="onEndAllPingJobsClicked"
             android:text="@string/end_all_ping_jobs"
             android:backgroundTint="@android:color/holo_red_light" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hint_input_mac_address_to_listen"
+                android:layout_marginEnd="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:inputType="text"
+                android:id="@+id/input_mac_address_to_listen" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

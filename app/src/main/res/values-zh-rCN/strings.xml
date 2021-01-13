@@ -27,4 +27,11 @@
     <string name="end_ping_jobs_success">结束了所有 Ping 任务（如果一切顺利的话）</string>
     <string name="hint_list_jobs">当前任务：</string>
     <string name="query_ping_jobs">查询当前已有的 Ping 任务</string>
+    <string name="bt_broadcast_receiver_name">BluetoothBroadcastReceiver</string>
+    <string name="hint_input_mac_address_to_listen">监听 MAC</string>
+    <string name="noti_job_executing">正在持续 Ping 蓝牙设备</string>
+    <string name="noti_job_executing_desc">正在 Ping %s</string>
+    <string name="noti_channel_name">正在 Ping 蓝牙设备</string>
+    <string name="noti_channel_desc">当开始一个每隔几秒就 Ping 某蓝牙设备的任务时就会出现</string>
+    <string name="noti_action_stop">停止</string>
 </resources>

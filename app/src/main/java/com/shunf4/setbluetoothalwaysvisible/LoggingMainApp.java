@@ -1,6 +1,9 @@
 package com.shunf4.setbluetoothalwaysvisible;
 
 import android.app.Application;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
+import android.content.IntentFilter;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,5 +26,9 @@ public class LoggingMainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        registerReceiver(new BluetoothBroadcastReceiver(),
+                new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
+        );
     }
 }

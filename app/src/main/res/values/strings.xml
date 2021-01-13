@@ -27,5 +27,12 @@
     <string name="end_ping_jobs_success">Ended Ping jobs hopefully</string>
     <string name="hint_list_jobs">"Current jobs: "</string>
     <string name="query_ping_jobs">Query Current Ping Jobs</string>
+    <string name="bt_broadcast_receiver_name">BluetoothBroadcastReceiver</string>
+    <string name="hint_input_mac_address_to_listen">Listening MAC</string>
+    <string name="noti_job_executing">Consistently Pinging Bluetooth Device</string>
+    <string name="noti_job_executing_desc">Pinging %s</string>
+    <string name="noti_channel_name">Pinging Bluetooth Device</string>
+    <string name="noti_channel_desc">Shows when you starts a job pinging a bluetooth device every a few seconds</string>
+    <string name="noti_action_stop">Stop</string>
 
 </resources>
