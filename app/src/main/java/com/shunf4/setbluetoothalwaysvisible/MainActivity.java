@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification.Builder notiBuilder = new Notification.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_bluetooth_pinging)
                 .setContentTitle(context.getString(R.string.noti_job_executing))
                 .setContentText(context.getString(R.string.noti_job_executing_desc, macAddressStr))
                 .setContentIntent(pendingIntent)
